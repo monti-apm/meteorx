@@ -17,8 +17,10 @@ I will maintain it and update it in the future. If you find an error, please ope
 
 ## Installation
 
+read more in [atmospherejs](https://atmospherejs.com/lamhieu/meteorx)
+
 ```bash
-$ meteor add lamhieu-vk:meteorx
+$ meteor add lamhieu:meteorx
 ```
 
 ## What you can do with this
