@@ -93,3 +93,13 @@ Tinytest.addAsync(
     });
   }
 );
+
+Tinytest.addAsync(
+  'MongoLivedata - SynchronousCursor',
+  function (test, done) {
+    MeteorX.onReady(function() {
+      test.isNotNull(MeteorX.SynchronousCursor.prototype);
+      done();
+    });
+  }
+);
