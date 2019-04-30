@@ -22,7 +22,7 @@ MeteorX {
   MongoOplogDriver: { [Function: OplogObserveDriver] cursorSupported: [Function] },
   MongoPollingDriver: [Function: PollingObserveDriver],
   Multiplexer: [Function: ObserveMultiplexer],
-  SyncronousCursor: [Function: SynchronousCursor],
+  SynchronousCursor: [Function: SynchronousCursor],
 }
 ```
 
