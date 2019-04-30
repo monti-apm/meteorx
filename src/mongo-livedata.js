@@ -10,7 +10,15 @@ exposeMongoLivedata = function(namespace) {
   exposeOplogDriver(namespace, coll);
   exposePollingDriver(namespace, coll);
   exposeMultiplexer(namespace, coll);
+  exposeSyncronousCursor(namespace, coll);
 };
+
+function exposeSyncronousCursor(namespace, coll) {
+  const synchronousCursor = _getSyncronousCursor(coll.find({}));
+  if (synchronousCursor) {
+    namespace.SyncronousCursor = synchronousCursor.constructor;
+  }
+}
 
 function exposeOplogDriver(namespace, coll) {
   const driver = _getObserverDriver(coll.find({}));
@@ -47,4 +55,12 @@ function _getMultiplexer(cursor) {
   const handler = cursor.observeChanges({ added: Function.prototype });
   handler.stop();
   return handler._multiplexer;
+}
+
+function _getSyncronousCursor(cursor) {
+  cursor.fetch();
+  const synchronousCursor = cursor._synchronousCursor;
+  if (synchronousCursor) {
+    return synchronousCursor;
+  }
 }
