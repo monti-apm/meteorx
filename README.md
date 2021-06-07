@@ -1,5 +1,4 @@
-# MeteorX
-
+# MeteorX ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/monti-apm/meteorx/Test?style=flat-square)
 Exposes internal Meteor APIs.
 
 Based on [lamhieu-vk/meteorx](https://github.com/lamhieu-vk/meteorx).
