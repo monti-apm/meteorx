@@ -25,7 +25,7 @@ MeteorX {
 
 ## Installation
 
-read more in [atmospherejs](https://atmospherejs.com/lamhieu/meteorx)
+read more in [atmospherejs](https://atmospherejs.com/montiapm/meteorx)
 
 ```bash
 $ meteor add montiapm:meteorx
