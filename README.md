@@ -1,10 +1,8 @@
 # MeteorX
 
-[![github issues][github-issues-image]][github-issues-url]
-[![build status][travis-image]][github-project-url]
+Exposes internal Meteor APIs.
 
-Exposing internal Meteor APIs to hack Meteor easily, fork from [meteorhacks/meteorx](https://github.com/meteorhacks/meteorx).
-I will maintain it and update it in the future. If you find an error, please open the issue in this project!
+Based on [lamhieu-vk/meteorx](https://github.com/lamhieu-vk/meteorx).
 
 ## Available APIs on Server-side
 
@@ -31,7 +29,7 @@ MeteorX {
 read more in [atmospherejs](https://atmospherejs.com/lamhieu/meteorx)
 
 ```bash
-$ meteor add lamhieu:meteorx
+$ meteor add montiapm:meteorx
 ```
 
 ## What you can do with this
@@ -40,8 +38,3 @@ Think about your meteor related issues and fix them. Some of them are:
 
 - Unblock Subscriptions
 - Remove MergeBox
-
-[github-project-url]: https://github.com/lamhieu-vk/meteorx
-[travis-image]: https://travis-ci.com/lamhieu-vk/meteorx.svg?branch=master
-[github-issues-image]: https://img.shields.io/github/issues/lamhieu-vk/meteorx.svg
-[github-issues-url]: https://github.com/lamhieu-vk/meteorx/issues

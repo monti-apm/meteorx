@@ -1,8 +1,8 @@
 Package.describe({
-  summary: "Exposing internal Meteor APIs to hack Meteor easily",
-  version: "2.1.1",
-  git: "https://github.com/lamhieu-vk/meteorx.git",
-  name: "lamhieu:meteorx",
+  summary: "Exposes internal Meteor APIs",
+  version: "2.2.0",
+  git: "https://github.com/montiapm/meteorx.git",
+  name: "montiapm:meteorx",
 });
 
 Package.onUse(function(api) {
