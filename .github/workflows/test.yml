@@ -41,4 +41,7 @@ jobs:
 
       - name: Run Tests
         run: |
+          # Fix using old versions of Meteor
+          export NODE_TLS_REJECT_UNAUTHORIZED=0
+
           mtest --package ./ --once ${{ matrix.meteorRelease }} 
