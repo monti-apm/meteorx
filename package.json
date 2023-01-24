@@ -1,0 +1,14 @@
+{
+  "name": "meteorx",
+  "scripts": {
+    "test": "meteor test-packages ./",
+    "test-arm64": "arch -arm64 meteor test-packages ./"
+  },
+  "devDependencies": {
+    "@types/meteor": "^1.4.87"
+  },
+  "volta": {
+    "node": "14.21.2",
+    "npm": "6.14.17"
+  }
+}
