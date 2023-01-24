@@ -18,6 +18,7 @@ Package.onTest(function(api) {
 
 function configurePackage(api) {
   api.versionsFrom("METEOR@1.0");
-  api.use(["random", "mongo"], "server");
+  api.use("random", "server");
+  api.use("mongo", "server", { weak: true });
   api.addFiles(["src/livedata.js", "src/mongo-livedata.js", "src/server.js"], "server");
 }
