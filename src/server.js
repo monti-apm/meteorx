@@ -1,6 +1,9 @@
 import { exposeMongoLivedata } from "./mongo-livedata";
+import { isInstalled } from "./utils";
 
 const Fibers = Npm.require("fibers");
+
+const isFibersInstalled = isInstalled("fibers");
 
 MeteorX = {};
 
@@ -32,6 +35,10 @@ Meteor.startup(function() {
 });
 
 function runWithAFiber(cb) {
+  if (!isFibersInstalled) {
+    cb();
+  }
+
   if (Fibers.current) {
     cb();
   } else {
