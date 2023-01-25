@@ -1,6 +1,9 @@
-Fibers = Npm.require("fibers");
+import { exposeMongoLivedata } from "./mongo-livedata";
+
+const Fibers = Npm.require("fibers");
 
 MeteorX = {};
+
 MeteorX._readyCallbacks = [];
 MeteorX._ready = false;
 

@@ -1,4 +1,12 @@
-exposeMongoLivedata = function(namespace) {
+const isMongoInstalled = Package.hasOwnProperty('mongo');
+
+export const exposeMongoLivedata = function(namespace) {
+  if (!isMongoInstalled) {
+    return;
+  }
+
+  import { MongoInternals } from "meteor/mongo";
+
   const MongoColl = typeof Mongo !== "undefined" ? Mongo.Collection : Meteor.Collection;
   const coll = new MongoColl("__dummy_coll_" + Random.id());
   // we need wait until db get connected with meteor, .findOne() does that
