@@ -19,6 +19,10 @@ Package.onTest(function(api) {
 function configurePackage(api) {
   api.versionsFrom("METEOR@1.0");
   api.use(["random", "ecmascript"], "server");
-  api.use(["mongo", "ddp-server"], "server", { weak: true });
+
+  /**
+   * @todo Switch to `weak` dependency once the issue has been fixed.
+   */
+  api.use(["mongo", "ddp-server"], "server");
   api.addFiles(["src/livedata.js", "src/mongo-livedata.js", "src/server.js"], "server");
 }
