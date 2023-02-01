@@ -18,7 +18,7 @@ async function _getMultiplexer(cursor) {
 async function _getObserverDriver(cursor) {
   const multiplexer = await _getMultiplexer(cursor);
 
-  return multiplexer?._observeDriver || undefined;
+  return multiplexer && multiplexer._observeDriver || undefined;
 }
 
 async function exposeOplogDriver(namespace, coll) {
