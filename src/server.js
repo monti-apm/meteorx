@@ -1,7 +1,6 @@
 import { exposeMongoLivedata } from "./mongo-livedata";
-import { isInstalled } from "./utils";
-
-const isFibersInstalled = isInstalled("fibers");
+import { isFibersInstalled, runWithAFiber } from "./utils";
+import { exposeMongoAsync } from "./fiberless/mongo";
 
 /**
  * @namespace MeteorX
@@ -22,33 +21,25 @@ MeteorX.onReady = function(cb) {
 
 MeteorX.Server = Meteor.server.constructor;
 
-
 exposeLivedata(MeteorX);
 
-// before using any other MeteorX apis we need to hijack Mongo related code
-// that'w what we are doing here.
-Meteor.startup(function() {
-  runWithAFiber(function() {
-    exposeMongoLivedata(MeteorX);
+if (isFibersInstalled) {
+  Meteor.startup(function() {
+    runWithAFiber(() => {
+      exposeMongoLivedata(MeteorX);
+    });
+
+    MeteorX._readyCallbacks.map(runWithAFiber);
+    MeteorX._ready = true;
   });
+} else {
+  Meteor.startup(async function() {
+    await exposeMongoAsync(MeteorX);
 
-  MeteorX._readyCallbacks.forEach(function(fn) {
-    runWithAFiber(fn);
-  });
-  MeteorX._ready = true;
-});
-
-function runWithAFiber(cb) {
-  if (!isFibersInstalled) {
-    cb();
-    return;
-  }
-
-  const Fibers = Npm.require("fibers");
-
-  if (Fibers.current) {
-    cb();
-  } else {
-    new Fiber(cb).run();
-  }
+    MeteorX._readyCallbacks.forEach(fn => fn());
+    MeteorX._ready = true;
+  })
 }
+
+
+
