@@ -22,7 +22,7 @@ async function _getObserverDriver(cursor) {
 }
 
 async function exposeOplogDriver(namespace, coll) {
-  const driver = _getObserverDriver(coll.find({}));
+  const driver = await _getObserverDriver(coll.find({}));
   // verify observer driver is an oplog driver
   if (driver && typeof driver.constructor.cursorSupported === "function") {
     namespace.MongoOplogDriver = driver.constructor;
@@ -31,7 +31,7 @@ async function exposeOplogDriver(namespace, coll) {
 
 async function exposePollingDriver(namespace, coll) {
   const cursor = coll.find({}, { limit: 20, _disableOplog: true });
-  const driver = _getObserverDriver(cursor);
+  const driver = await _getObserverDriver(cursor);
   // verify observer driver is a polling driver
   if (driver && typeof driver.constructor.cursorSupported === "undefined") {
     namespace.MongoPollingDriver = driver.constructor;
