@@ -36,7 +36,10 @@ if (isFibersInstalled) {
   Meteor.startup(async function() {
     await exposeMongoAsync(MeteorX);
 
-    MeteorX._readyCallbacks.forEach(fn => fn());
+    for (const cb of MeteorX._readyCallbacks) {
+      await cb();
+    }
+
     MeteorX._ready = true;
   })
 }

@@ -1,20 +1,20 @@
-export const isFibersInstalled = isInstalled("fibers");
+export const isFibersInstalled = isInstalled('fibers');
 
-export function isInstalled(x) {
+export function isInstalled (x) {
   try {
-    return Boolean(Npm.require(x));
+    return Boolean(require(x));
   } catch (e) {
     return false;
   }
 }
 
-export function runWithAFiber(cb) {
+export function runWithAFiber (cb) {
   if (!isFibersInstalled) {
     cb();
     return;
   }
 
-  const Fibers = Npm.require("fibers");
+  const Fibers = require('fibers');
 
   if (Fibers.current) {
     cb();
