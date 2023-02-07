@@ -1,6 +1,7 @@
 import { exposeMongoLivedata } from "./mongo-livedata";
 import { isFibersInstalled, isMongoInstalled, runWithAFiber, wrapFn } from "./utils";
 import { exposeMongoAsync } from "./fiberless/mongo";
+import { installMongoDetector } from "./mongo-detector";
 
 /**
  * @namespace MeteorX
@@ -8,17 +9,6 @@ import { exposeMongoAsync } from "./fiberless/mongo";
 MeteorX = {};
 
 MeteorX._hasInitializedMongo = false;
-
-if (isMongoInstalled) {
-  const { MongoInternals } = require('meteor/mongo');
-
-  MongoInternals.defaultRemoteCollectionDriver = wrapFn(MongoInternals.defaultRemoteCollectionDriver, function (fn, args) {
-    MeteorX._hasInitializedMongo = true;
-
-    return fn.apply(this, args);
-  })
-}
-
 MeteorX._readyCallbacks = [];
 MeteorX._ready = false;
 MeteorX._isFibersInstalled = isFibersInstalled;
@@ -32,6 +22,8 @@ MeteorX.onReady = function(cb) {
 };
 
 MeteorX.Server = Meteor.server.constructor;
+
+installMongoDetector(MeteorX);
 
 exposeLivedata(MeteorX);
 
