@@ -1,3 +1,5 @@
+import { Mongo, MongoInternals } from "meteor/mongo";
+
 function _getDummyCollection() {
   const Collection = typeof Mongo !== "undefined" ? Mongo.Collection : Meteor.Collection;
   return new Collection("__dummy_coll_" + Random.id());
@@ -54,9 +56,7 @@ async function exposeMultiplexer(namespace, coll) {
 }
 
 export async function exposeMongoAsync(namespace) {
-  const isMongoInstalled = Package.hasOwnProperty('mongo');
-
-  if (!isMongoInstalled) {
+  if (!namespace._hasInitializedMongo) {
     return;
   }
 
@@ -64,9 +64,11 @@ export async function exposeMongoAsync(namespace) {
 
   const coll = _getDummyCollection();
 
-  await coll.findOneAsync()
+  await coll.findOneAsync();
 
-  namespace.MongoConnection = MongoInternals.defaultRemoteCollectionDriver().mongo.constructor;
+  const driver = MongoInternals.defaultRemoteCollectionDriver();
+
+  namespace.MongoConnection = driver.mongo.constructor;
   const cursor = coll.find();
   namespace.MongoCursor = cursor.constructor;
 

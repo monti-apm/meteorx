@@ -1,11 +1,20 @@
 export const isFibersInstalled = isInstalled('fibers');
 
+export const isMongoInstalled = Package.hasOwnProperty('mongo');
+
 export function isInstalled (x) {
   try {
     return Boolean(require(x));
   } catch (e) {
     return false;
   }
+}
+
+export function wrapFn (fn, wrapper) {
+  return function () {
+    const args = Array.prototype.slice.call(arguments);
+    return wrapper.call(this, fn, args);
+  };
 }
 
 export function runWithAFiber (cb) {

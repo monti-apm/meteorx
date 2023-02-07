@@ -1,7 +1,5 @@
-const isMongoInstalled = Package.hasOwnProperty('mongo');
-
 export const exposeMongoLivedata = function(namespace) {
-  if (!isMongoInstalled) {
+  if (!namespace._hasInitializedMongo) {
     return;
   }
 
