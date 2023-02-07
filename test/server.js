@@ -1,3 +1,5 @@
+Meteor.Collection('dummy');
+
 Tinytest.addAsync(
   'Livedata - Session',
   function (test, done) {
