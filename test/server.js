@@ -1,7 +1,4 @@
-
-Meteor.startup(function() {
-  Meteor.Collection('dummy');
-})
+new Mongo.Collection('dummy');
 
 Tinytest.addAsync(
   'Livedata - Session',
