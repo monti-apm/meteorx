@@ -10,9 +10,8 @@ export function isInstalled (x) {
   }
 }
 
-export function wrapFn (fn, wrapper) {
-  return function () {
-    const args = Array.prototype.slice.call(arguments);
+export function wrapFn(fn, wrapper) {
+  return function (...args) {
     return wrapper.call(this, fn, args);
   };
 }

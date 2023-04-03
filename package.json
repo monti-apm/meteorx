@@ -2,7 +2,7 @@
   "name": "meteorx",
   "scripts": {
     "test": "meteor test-packages ./",
-    "test-arm64": "arch -arm64 meteor test-packages ./"
+    "test-arm64": "MONGO_URL='' arch -arm64 meteor test-packages ./"
   },
   "devDependencies": {
     "@types/meteor": "^1.4.87"

@@ -8,7 +8,6 @@ export function installMongoDetector(MeteorX) {
 
     MongoInternals.defaultRemoteCollectionDriver = wrapFn(MongoInternals.defaultRemoteCollectionDriver, function (fn, args) {
       if (!MeteorX._hasInitializedMongo) {
-
         const driver = fn.apply(this, args);
 
         if (MeteorX._ready) {
