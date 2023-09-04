@@ -1,6 +1,6 @@
 Package.describe({
   summary: "Exposes internal Meteor APIs",
-  version: "2.2.0",
+  version: "3.0.0",
   git: "https://github.com/montiapm/meteorx.git",
   name: "montiapm:meteorx",
 });
@@ -17,7 +17,7 @@ Package.onTest(function(api) {
 });
 
 function configurePackage(api) {
-  api.versionsFrom("METEOR@1.0");
+  api.versionsFrom("METEOR@2.0");
   api.use(["random", "ecmascript"], "server");
 
   /**
