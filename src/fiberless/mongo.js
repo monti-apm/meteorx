@@ -1,5 +1,26 @@
 import { Mongo, MongoInternals } from "meteor/mongo";
 
+export async function exposeMongoAsync(MeteorX) {
+  if (!MeteorX._mongoInstalled) return
+
+  import { MongoInternals } from "meteor/mongo";
+
+  const coll = _getDummyCollection();
+
+  await coll.findOneAsync();
+
+  const driver = MongoInternals.defaultRemoteCollectionDriver();
+
+  MeteorX.MongoConnection = driver.mongo.constructor;
+  const cursor = coll.find();
+  MeteorX.MongoCursor = cursor.constructor;
+
+  await exposeOplogDriver(MeteorX, coll);
+  await exposePollingDriver(MeteorX, coll);
+  await exposeMultiplexer(MeteorX, coll);
+  await exposeSynchronousCursor(MeteorX, coll);
+}
+
 function _getDummyCollection() {
   const Collection = typeof Mongo !== "undefined" ? Mongo.Collection : Meteor.Collection;
   return new Collection("__dummy_coll_" + Random.id());
@@ -53,25 +74,4 @@ async function exposeMultiplexer(namespace, coll) {
   if (multiplexer) {
     namespace.Multiplexer = multiplexer.constructor;
   }
-}
-
-export async function exposeMongoAsync(MeteorX) {
-  if (!MeteorX._mongoInstalled) return
-
-  import { MongoInternals } from "meteor/mongo";
-
-  const coll = _getDummyCollection();
-
-  await coll.findOneAsync();
-
-  const driver = MongoInternals.defaultRemoteCollectionDriver();
-
-  MeteorX.MongoConnection = driver.mongo.constructor;
-  const cursor = coll.find();
-  MeteorX.MongoCursor = cursor.constructor;
-
-  await exposeOplogDriver(MeteorX, coll);
-  await exposePollingDriver(MeteorX, coll);
-  await exposeMultiplexer(MeteorX, coll);
-  await exposeSynchronousCursor(MeteorX, coll);
 }
