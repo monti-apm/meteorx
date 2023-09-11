@@ -4,9 +4,7 @@
     "test:meteor2": "meteor --release=2.13.1 test-packages ./",
     "test:meteor3": "arch -arm64 meteor --release=3.0-alpha.10 test-packages ./"
   },
-  "devDependencies": {
-    "@types/meteor": "^1.4.87"
-  },
+  "devDependencies": {},
   "volta": {
     "node": "14.21.2",
     "npm": "6.14.17"
