@@ -55,10 +55,8 @@ async function exposeMultiplexer(namespace, coll) {
   }
 }
 
-export async function exposeMongoAsync(namespace) {
-  if (!namespace._hasInitializedMongo) {
-    return;
-  }
+export async function exposeMongoAsync(MeteorX) {
+  if (!MeteorX._mongoInstalled) return
 
   import { MongoInternals } from "meteor/mongo";
 
@@ -68,12 +66,12 @@ export async function exposeMongoAsync(namespace) {
 
   const driver = MongoInternals.defaultRemoteCollectionDriver();
 
-  namespace.MongoConnection = driver.mongo.constructor;
+  MeteorX.MongoConnection = driver.mongo.constructor;
   const cursor = coll.find();
-  namespace.MongoCursor = cursor.constructor;
+  MeteorX.MongoCursor = cursor.constructor;
 
-  await exposeOplogDriver(namespace, coll);
-  await exposePollingDriver(namespace, coll);
-  await exposeMultiplexer(namespace, coll);
-  await exposeSynchronousCursor(namespace, coll);
+  await exposeOplogDriver(MeteorX, coll);
+  await exposePollingDriver(MeteorX, coll);
+  await exposeMultiplexer(MeteorX, coll);
+  await exposeSynchronousCursor(MeteorX, coll);
 }

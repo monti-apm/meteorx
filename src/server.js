@@ -1,17 +1,16 @@
 import { exposeMongoLivedata } from "./mongo-livedata";
-import { isFibersInstalled, isMongoInstalled, runWithAFiber, wrapFn } from "./utils";
+import { runWithAFiber } from "./utils";
 import { exposeMongoAsync } from "./fiberless/mongo";
-import { installMongoDetector } from "./mongo-detector";
 
 /**
  * @namespace MeteorX
  */
 MeteorX = {};
 
-MeteorX._hasInitializedMongo = false;
+MeteorX._mongoInstalled = Package.hasOwnProperty("mongo");
 MeteorX._readyCallbacks = [];
 MeteorX._ready = false;
-MeteorX._isFibersInstalled = isFibersInstalled;
+MeteorX._fibersDisabled = Meteor.isFibersDisabled;
 
 MeteorX.onReady = function(cb) {
   if (MeteorX._ready) {
@@ -22,8 +21,6 @@ MeteorX.onReady = function(cb) {
 };
 
 MeteorX.Server = Meteor.server.constructor;
-
-installMongoDetector(MeteorX);
 
 exposeLivedata(MeteorX);
 
@@ -46,7 +43,7 @@ async function initAsync() {
   MeteorX._ready = true;
 }
 
-Meteor.startup(isFibersInstalled ? initSync : initAsync);
+Meteor.startup(MeteorX._fibersDisabled ? initAsync : initSync);
 
 
 
