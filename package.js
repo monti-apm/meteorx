@@ -17,7 +17,7 @@ Package.onTest(function(api) {
 });
 
 function configurePackage(api) {
-  api.versionsFrom("METEOR@1.4");
+  api.versionsFrom("METEOR@2.0");
   api.use(["random", "ecmascript"], "server");
 
   api.use(["mongo", "ddp-server"], "server");
