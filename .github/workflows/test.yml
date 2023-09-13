@@ -26,6 +26,10 @@ jobs:
           - '--release 2.7.3'
           - '--release 2.8.2'
           - '--release 2.9.0'
+          - '--release 2.10'
+          - '--release 2.11'
+          - '--release 2.12'
+          - '--release 3.0-alpha.10'
           # Latest version
           -
     steps:
