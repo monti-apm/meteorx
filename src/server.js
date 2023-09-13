@@ -1,8 +1,16 @@
-Fibers = Npm.require("fibers");
+import { exposeMongoLivedata } from "./mongo-livedata";
+import { runWithAFiber } from "./utils";
+import { exposeMongoAsync } from "./fiberless/mongo";
 
+/**
+ * @namespace MeteorX
+ */
 MeteorX = {};
+
+MeteorX._mongoInstalled = Package.hasOwnProperty("mongo");
 MeteorX._readyCallbacks = [];
 MeteorX._ready = false;
+MeteorX._fibersDisabled = Meteor.isFibersDisabled;
 
 MeteorX.onReady = function(cb) {
   if (MeteorX._ready) {
@@ -13,25 +21,29 @@ MeteorX.onReady = function(cb) {
 };
 
 MeteorX.Server = Meteor.server.constructor;
+
 exposeLivedata(MeteorX);
 
-// before using any other MeteorX apis we need to hijack Mongo related code
-// that'w what we are doing here.
-Meteor.startup(function() {
-  runWithAFiber(function() {
+function initSync() {
+  runWithAFiber(() => {
     exposeMongoLivedata(MeteorX);
   });
 
-  MeteorX._readyCallbacks.forEach(function(fn) {
-    runWithAFiber(fn);
-  });
+  MeteorX._readyCallbacks.map(runWithAFiber);
   MeteorX._ready = true;
-});
-
-function runWithAFiber(cb) {
-  if (Fibers.current) {
-    cb();
-  } else {
-    new Fiber(cb).run();
-  }
 }
+
+async function initAsync() {
+  await exposeMongoAsync(MeteorX);
+
+  for (const cb of MeteorX._readyCallbacks) {
+    await cb();
+  }
+
+  MeteorX._ready = true;
+}
+
+Meteor.startup(MeteorX._fibersDisabled ? initAsync : initSync);
+
+
+

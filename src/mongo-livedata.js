@@ -1,16 +1,20 @@
-exposeMongoLivedata = function(namespace) {
+export const exposeMongoLivedata = function(MeteorX) {
+  if (!MeteorX._mongoInstalled) return
+
+  import { MongoInternals } from "meteor/mongo";
+
   const MongoColl = typeof Mongo !== "undefined" ? Mongo.Collection : Meteor.Collection;
   const coll = new MongoColl("__dummy_coll_" + Random.id());
   // we need wait until db get connected with meteor, .findOne() does that
   coll.findOne();
 
-  namespace.MongoConnection = MongoInternals.defaultRemoteCollectionDriver().mongo.constructor;
+  MeteorX.MongoConnection = MongoInternals.defaultRemoteCollectionDriver().mongo.constructor;
   const cursor = coll.find();
-  namespace.MongoCursor = cursor.constructor;
-  exposeOplogDriver(namespace, coll);
-  exposePollingDriver(namespace, coll);
-  exposeMultiplexer(namespace, coll);
-  exposeSynchronousCursor(namespace, coll);
+  MeteorX.MongoCursor = cursor.constructor;
+  exposeOplogDriver(MeteorX, coll);
+  exposePollingDriver(MeteorX, coll);
+  exposeMultiplexer(MeteorX, coll);
+  exposeSynchronousCursor(MeteorX, coll);
 };
 
 function exposeSynchronousCursor(namespace, coll) {
