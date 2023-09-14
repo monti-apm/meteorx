@@ -18,8 +18,8 @@ Package.onTest(function(api) {
 
 function configurePackage(api) {
   api.versionsFrom("METEOR@1.4");
-  api.use(["random@1.0.1||2.0.0-alpha300.10", "ecmascript"], "server");
+  api.use(["random@1.0.1||2.0.0-alpha300.10", "ecmascript@0.16.7||1.0.0-alpha300.10"], "server");
 
-  api.use(["mongo", "ddp-server@1.3.9||2.0.0||3.0.0-alpha300.10"], "server");
+  api.use(["mongo@1.16.7||2.0.0-alpha300.10", "ddp-server@1.3.9||2.0.0||3.0.0-alpha300.10"], "server");
   api.addFiles(["src/livedata.js", "src/mongo-livedata.js", "src/server.js"], "server");
 }
