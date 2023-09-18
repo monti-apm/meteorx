@@ -1,6 +1,6 @@
 Package.describe({
   summary: "Exposes internal Meteor APIs",
-  version: "2.3.0",
+  version: "2.3.1",
   git: "https://github.com/montiapm/meteorx.git",
   name: "montiapm:meteorx",
 });
