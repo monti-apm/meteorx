@@ -65,6 +65,7 @@ async function exposeSynchronousCursor(namespace, coll) {
   const synchronousCursor = await _getSynchronousCursor(coll.find({}));
   if (synchronousCursor) {
     namespace.SynchronousCursor = synchronousCursor.constructor;
+    namespace.AsynchronousCursor = namespace.SynchronousCursor;
   }
 }
 

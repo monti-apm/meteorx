@@ -95,10 +95,11 @@ Tinytest.addAsync(
 );
 
 Tinytest.addAsync(
-  'MongoLivedata - SynchronousCursor',
+  'MongoLivedata - SynchronousCursor/AsynchronousCursor',
   function (test, done) {
     MeteorX.onReady(function() {
       test.isNotNull(MeteorX.SynchronousCursor.prototype);
+      test.isNotNull(MeteorX.AsynchronousCursor.prototype);
       done();
     });
   }

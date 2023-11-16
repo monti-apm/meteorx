@@ -29,7 +29,7 @@ jobs:
           - '--release 2.9.0'
           - '--release 2.10.0'
           - '--release 2.11.0'
-          - '--release 3.0-alpha.10'
+          - '--release 3.0-alpha.17'
           # Latest version
           -
     steps:
