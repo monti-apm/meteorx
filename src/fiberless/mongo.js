@@ -65,6 +65,9 @@ async function exposeSynchronousCursor(namespace, coll) {
   const synchronousCursor = await _getSynchronousCursor(coll.find({}));
   if (synchronousCursor) {
     namespace.SynchronousCursor = synchronousCursor.constructor;
+    // Meteor 3 automatically exposes the AsynchronousCursor in place of the SynchronousCursor.
+    // TODO: Check how this evolves in the Meteor codebase, the references might be renamed as
+    // the AsyncCursor is now the default.
     namespace.AsynchronousCursor = namespace.SynchronousCursor;
   }
 }
