@@ -99,7 +99,11 @@ Tinytest.addAsync(
   function (test, done) {
     MeteorX.onReady(function() {
       test.isNotNull(MeteorX.SynchronousCursor.prototype);
-      test.isNotNull(MeteorX.AsynchronousCursor.prototype);
+
+      if (Meteor.release.startsWith('METEOR@3.0')) {
+        test.isNotNull(MeteorX.AsynchronousCursor.prototype);
+      }
+
       done();
     });
   }
