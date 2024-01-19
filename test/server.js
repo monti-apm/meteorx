@@ -100,7 +100,7 @@ Tinytest.addAsync(
     MeteorX.onReady(function() {
       test.isNotNull(MeteorX.SynchronousCursor.prototype);
 
-      if (Meteor.release.startsWith('METEOR@3.0')) {
+      if (Meteor.isFibersDisabled) {
         test.isNotNull(MeteorX.AsynchronousCursor.prototype);
       }
 
