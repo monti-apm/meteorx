@@ -20,6 +20,7 @@ MeteorX {
   MongoPollingDriver: [Function: PollingObserveDriver],
   Multiplexer: [Function: ObserveMultiplexer],
   SynchronousCursor: [Function: SynchronousCursor],
+  AsynchronousCursor: [Function: AsynchronousCursor]
 }
 ```
 
