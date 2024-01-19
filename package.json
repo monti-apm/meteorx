@@ -2,7 +2,7 @@
   "name": "meteorx",
   "scripts": {
     "test:meteor2": "meteor --release=2.13.1 test-packages ./",
-    "test:meteor3": "arch -arm64 meteor --release=3.0-alpha.10 test-packages ./"
+    "test:meteor3": "arch -arm64 meteor --release=3.0-alpha.17 test-packages ./"
   },
   "devDependencies": {},
   "volta": {
