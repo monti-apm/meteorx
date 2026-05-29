@@ -3,7 +3,7 @@ import { Mongo, MongoInternals } from "meteor/mongo";
 export async function exposeMongoAsync(MeteorX) {
   if (!MeteorX._mongoInstalled) return
 
-  import { MongoInternals } from "meteor/mongo";
+  const { MongoInternals } = require("meteor/mongo");
 
   const coll = _getDummyCollection();
 
