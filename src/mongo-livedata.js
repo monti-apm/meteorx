@@ -1,7 +1,7 @@
 export const exposeMongoLivedata = function(MeteorX) {
   if (!MeteorX._mongoInstalled) return
 
-  import { MongoInternals } from "meteor/mongo";
+  const { MongoInternals } = require("meteor/mongo");
 
   const MongoColl = typeof Mongo !== "undefined" ? Mongo.Collection : Meteor.Collection;
   const coll = new MongoColl("__dummy_coll_" + Random.id());
