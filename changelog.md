@@ -1,3 +1,7 @@
+## 2.3.3, May 29, 2026
+
+* Fix compatibility with Meteor's modern transpiler
+
 ## 2.3.2, May 29, 2026
 
 * Fix compatibility with Meteor's modern transpiler
